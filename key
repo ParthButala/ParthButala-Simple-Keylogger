@@ -1,0 +1,54 @@
+from PIL import Image
+import io
+
+print("IMAGE ENCRYPTION/DECRYPTION PROGRAM")
+
+# Encrypt Image
+def encrypt_image(img, key):
+    pixels = img.load()
+    width, height = img.size
+
+    for i in range(width):
+        for j in range(height):
+            r, g, b = pixels[i, j]
+            encrypted_pixel = (b, g, r)
+            pixels[i, j] = encrypted_pixel
+
+    return img
+
+# Decrypt Image
+def decrypt_image(img, key):
+    pixels = img.load()
+    width, height = img.size
+
+    for i in range(width):
+        for j in range(height):
+            r, g, b = pixels[i, j]
+            decrypted_pixel = (b, g, r)
+            pixels[i, j] = decrypted_pixel
+
+    return img
+
+# Example usage for an online environment
+def main():
+    # Open and encrypt the image
+    with open("input_image.jpg", "rb") as file:
+        img = Image.open(file)
+        encrypted_img = encrypt_image(img, key=None)
+        encrypted_img.show()  # Display the encrypted image
+
+        # Save the encrypted image
+        encrypted_img.save("encrypted_image.jpg")
+        print("Image encrypted successfully!")
+
+    # Open and decrypt the image
+    with open("encrypted_image.jpg", "rb") as file:
+        img = Image.open(file)
+        decrypted_img = decrypt_image(img, key=None)
+        decrypted_img.show()  # Display the decrypted image
+
+        # Save the decrypted image
+        decrypted_img.save("decrypted_image.jpg")
+        print("Image decrypted successfully!")
+
+if __name__
